@@ -1,0 +1,11 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "dot-notation": "off"
+  }
+}
