@@ -6,8 +6,8 @@ const MyStatusBar = () => {
     <View style={styles.container}>
       <StatusBar
         translucent
-        backgroundColor='#171b1e'
-        barStyle='light-content'
+        backgroundColor='#F7F7F7'
+        barStyle='dark-content'
       />
     </View>
   )

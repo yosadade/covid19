@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'react-native-gesture-handler'
 
 import HomeScreen from '../screen/HomeScreen'
@@ -8,69 +8,74 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-const Home = () => {
-  const Stack = createStackNavigator()
+const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
+
+const Navigation = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        ...TransitionPresets.SlideFromRightIOS
-      }}
-    >
-      <Stack.Screen
-        name='HomeScreen'
-        component={HomeScreen}
-      />
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName='HomeTab'
+        screenOptions={{
+          headerShown: false,
+          ...TransitionPresets.SlideFromRightIOS
+        }}
+      >
+        <Stack.Screen
+          name='AboutScreen'
+          component={AboutScreen}
+        />
+        <Stack.Screen
+          name='HomeTab'
+          component={HomeTab}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
-const About = () => {
-  const Stack = createStackNavigator()
+// const allTab = [
+//   {
+//     name: 'HomeScreen',
+//     component: { HomeScreen },
+//     label: 'Home',
+//     icon: null
+//   },
+//   {
+//     name: 'AboutScreen',
+//     component: { AboutScreen },
+//     label: 'About',
+//     icon: null
+//   }
+// ]
+
+const HomeTab = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        ...TransitionPresets.SlideFromRightIOS
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#FF9F1C',
+        style: {
+          height: 70
+        },
+        labelStyle: {
+          fontFamily: 'Nunito-SemiBold',
+          fontSize: 12,
+          marginBottom: 10
+        },
+        tabStyle: {
+          marginTop: 10
+        },
+        keyboardHidesTabBar: true
       }}
     >
-      <Stack.Screen
-        name='AboutScreen'
-        component={AboutScreen}
-      />
-    </Stack.Navigator>
+      <Tab.Screen
+        name='Home'
+        component={HomeScreen} />
+      <Tab.Screen
+        name='About'
+        component={AboutScreen} />
+    </Tab.Navigator>
   )
 }
 
-export default class Navigation extends Component {
-  render () {
-    const Tab = createBottomTabNavigator()
-    return (
-      <NavigationContainer>
-        {/* <Stack.Navigator
-          initialRouteName='HomeScreen'
-          screenOptions={{
-            headerShown: false,
-            ...TransitionPresets.SlideFromRightIOS
-          }}>
-          <Stack.Screen
-            name='HomeScreen'
-            component={HomeScreen}
-          />
-          <Stack.Screen
-            name='AboutScreen'
-            component={AboutScreen}
-          />
-        </Stack.Navigator> */}
-        <Tab.Navigator>
-          <Tab.Screen
-            name="Home"
-            component={Home} />
-          <Tab.Screen
-            name="About"
-            component={About} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    )
-  }
-}
+export default Navigation
