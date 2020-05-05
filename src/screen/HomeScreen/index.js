@@ -6,13 +6,14 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  View
+  View,
+  ScrollView
 } from 'react-native'
 
 import MyStatusBar from '../../components/StatusBar'
 import Navbar from '../../components/Navbar'
-import { ScrollView } from 'react-native-gesture-handler'
 import CardIndo from '../../components/CardIndo'
+import CardProvinsi from '../../components/CardProvinsi'
 
 class HomeScreen extends Component {
   constructor () {
@@ -43,10 +44,11 @@ class HomeScreen extends Component {
           })}
           enabled
         />
-        <Navbar />
+        <Navbar title='Covid19' backgroundColor='#F7F7F7'/>
         <ScrollView>
           {this.renderBanner()}
           <CardIndo />
+          <CardProvinsi />
         </ScrollView>
       </SafeAreaView>
     )
@@ -82,11 +84,12 @@ const styles = StyleSheet.create({
   },
   'banner__banner-area': {
     flex: 1,
-    height: 200,
+    height: 150,
     width: 350,
     backgroundColor: '#E86064',
     marginTop: 20,
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    borderRadius: 5
   },
   'banner__banner-area__img': {
     height: 200,

@@ -27,10 +27,10 @@ class Navbar extends Component {
 
   render () {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: this.props.backgroundColor }]}>
         <Text
           style={styles.title}>
-        Covid19
+          {this.props.title}
         </Text>
         <Text
           style={styles.dataUpdate}>
@@ -49,8 +49,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#F7F7F7'
+    alignItems: 'center'
   },
   title: {
     color: '#0A0D19',
