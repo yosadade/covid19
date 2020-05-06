@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Axios from 'axios'
 import Moment from 'moment'
 
@@ -27,14 +28,17 @@ class Navbar extends Component {
 
   render () {
     return (
-      <View style={[styles.container, { backgroundColor: this.props.backgroundColor }]}>
-        <Text
-          style={styles.title}>
-          {this.props.title}
-        </Text>
+      <View style={[styles.container]}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          <MaterialCommunityIcons name='mine' size={20} color='#FF2D54' />
+          <Text
+            style={styles.title}>
+          COVID19
+          </Text>
+        </View>
         <Text
           style={styles.dataUpdate}>
-        Last Update {this.state.dataLastUpdate}
+          {this.state.dataLastUpdate} WIB
         </Text>
       </View>
     )
@@ -49,15 +53,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#282B33'
+    // borderBottomWidth: 3,
+    // borderColor: '#F7F7F7'
   },
   title: {
-    color: '#0A0D19',
+    color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingLeft: 5
   },
   dataUpdate: {
-    color: '#0A0D19',
+    color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600'
   }

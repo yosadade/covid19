@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
 import Navbar from '../components/Navbar'
 
 class CardIndo extends Component {
@@ -28,44 +30,67 @@ class CardIndo extends Component {
   }
 
   render () {
-    const { jumlahKasus, meninggal, perawatan, sembuh } = this.state.data
     return (
       <View>
-        <Navbar title='Data Nasional' backgroundColor='#FFFFFF'/>
-        <View >
-          <View style={styles.cardIndo}>
-            <View style={styles.kasus}>
-              <View style={styles.icon}>
-                <Text style={styles.title}> KASUS </Text>
-              </View>
-              <View style={styles.data}>
-                <Text style={styles.number}> {jumlahKasus} </Text>
-              </View>
-            </View>
-            <View style={styles.meninggal}>
-              <View style={styles.icon}>
-                <Text style={styles.title}> MENINGGAL </Text>
-              </View>
-              <Text style={styles.number}> {meninggal} </Text>
-            </View>
+        {this.renderLead()}
+        {this.renderKasusMeninggal()}
+        {this.renderPerawatanSembuh()}
+      </View>
+    )
+  }
+
+  renderLead = () => {
+    return (
+      <View
+        style={styles['lead']}
+      >
+        <Text style={styles['lead__title']}>Data Nasional </Text>
+      </View>
+    )
+  }
+
+  renderKasusMeninggal = () => {
+    const { jumlahKasus, meninggal } = this.state.data
+    return (
+      <View style={styles.cardIndo}>
+        <View style={styles.kasus}>
+          <View style={styles.icon}>
+            <MaterialCommunityIcons name='mine' size={22} color='#FFFFFF'/>
+            <Text style={styles.title}> KASUS </Text>
           </View>
-          <View />
-          <View style={styles.cardIndo}>
-            <View style={styles.perawatan}>
-              <View style={styles.icon}>
-                {/* <FontAwesome name='home' size={22} color='#FFFFFF'/> */}
-                <Text style={styles.title}> PERAWATAN </Text>
-              </View>
-              <Text style={styles.number}> {perawatan} </Text>
-            </View>
-            <View style={styles.sembuh}>
-              <View style={styles.icon}>
-                {/* <FontAwesome name='child' size={22} color='#FFFFFF'/> */}
-                <Text style={styles.title}> SEMBUH </Text>
-              </View>
-              <Text style={styles.number}> {sembuh} </Text>
-            </View>
+          <View style={styles.data}>
+            <Text style={styles.number}> {jumlahKasus} </Text>
           </View>
+        </View>
+
+        <View style={styles.meninggal}>
+          <View style={styles.icon}>
+            <MaterialCommunityIcons name='grave-stone' size={20} color='#FFFFFF'/>
+            <Text style={styles.title}> MENINGGAL </Text>
+          </View>
+          <Text style={styles.number}> {meninggal} </Text>
+        </View>
+      </View>
+    )
+  }
+
+  renderPerawatanSembuh = () => {
+    const { perawatan, sembuh } = this.state.data
+    return (
+      <View style={styles.cardIndo}>
+        <View style={styles.perawatan}>
+          <View style={styles.icon}>
+            <FontAwesome name='hospital-o' size={18} color='#FFFFFF'/>
+            <Text style={styles.title}> PERAWATAN </Text>
+          </View>
+          <Text style={styles.number}> {perawatan} </Text>
+        </View>
+        <View style={styles.sembuh}>
+          <View style={styles.icon}>
+            <Ionicons name='ios-body' size={20} color='#FFFFFF'/>
+            <Text style={styles.title}> SEMBUH </Text>
+          </View>
+          <Text style={styles.number}> {sembuh} </Text>
         </View>
       </View>
     )
@@ -75,11 +100,20 @@ class CardIndo extends Component {
 export default CardIndo
 
 const styles = StyleSheet.create({
+  lead: {
+    paddingHorizontal: 20,
+    paddingBottom: 20
+  },
+  lead__title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF'
+  },
   cardIndo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    marginBottom: 20
+    paddingBottom: 20
   },
   kasus: {
     height: 100,

@@ -2,6 +2,8 @@ import React from 'react'
 import 'react-native-gesture-handler'
 
 import HomeScreen from '../screen/HomeScreen'
+import MapScreen from '../screen/MapScreen'
+import CallCenterScreen from '../screen/CallCenterScreen'
 import AboutScreen from '../screen/AboutScreen'
 
 import { NavigationContainer } from '@react-navigation/native'
@@ -21,6 +23,14 @@ const Navigation = () => {
           ...TransitionPresets.SlideFromRightIOS
         }}
       >
+        <Stack.Screen
+          name='MapScreen'
+          component={MapScreen}
+        />
+        <Stack.Screen
+          name='CallCenterScreen'
+          component={CallCenterScreen}
+        />
         <Stack.Screen
           name='AboutScreen'
           component={AboutScreen}
@@ -53,14 +63,15 @@ const HomeTab = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: '#FF9F1C',
+        activeTintColor: '#FF2D54',
         style: {
-          height: 70
+          height: 60,
+          backgroundColor: '#282B33'
         },
         labelStyle: {
-          fontFamily: 'Nunito-SemiBold',
           fontSize: 12,
-          marginBottom: 10
+          marginBottom: 10,
+          fontWeight: 'bold'
         },
         tabStyle: {
           marginTop: 10
@@ -70,10 +81,20 @@ const HomeTab = () => {
     >
       <Tab.Screen
         name='Home'
-        component={HomeScreen} />
+        component={HomeScreen}
+      />
+      <Tab.Screen
+        name='Map'
+        component={MapScreen}
+      />
+      <Tab.Screen
+        name='Call Center'
+        component={CallCenterScreen}
+      />
       <Tab.Screen
         name='About'
-        component={AboutScreen} />
+        component={AboutScreen}
+      />
     </Tab.Navigator>
   )
 }

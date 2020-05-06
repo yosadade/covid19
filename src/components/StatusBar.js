@@ -6,8 +6,8 @@ const MyStatusBar = () => {
     <View style={styles.container}>
       <StatusBar
         translucent
-        backgroundColor='#F7F7F7'
-        barStyle='dark-content'
+        backgroundColor='#282B33'
+        barStyle='light-content'
       />
     </View>
   )
@@ -20,7 +20,6 @@ export default MyStatusBar
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginBottom: 20
   },
   statusBar: {
