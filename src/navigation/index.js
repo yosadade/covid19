@@ -5,6 +5,10 @@ import HomeScreen from '../screen/HomeScreen'
 import MapScreen from '../screen/MapScreen'
 import CallCenterScreen from '../screen/CallCenterScreen'
 import AboutScreen from '../screen/AboutScreen'
+import SplashScreen from '../screen/SplashScreen'
+
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack'
@@ -34,6 +38,10 @@ const Navigation = () => {
         <Stack.Screen
           name='AboutScreen'
           component={AboutScreen}
+        />
+        <Stack.Screen
+          name='SplashScreen'
+          component={SplashScreen}
         />
         <Stack.Screen
           name='HomeTab'
@@ -82,18 +90,55 @@ const HomeTab = () => {
       <Tab.Screen
         name='Home'
         component={HomeScreen}
+        tabBarIcon={{
+          activeTintColor: 'red'
+        }}
+        options={{
+
+          activeTintColor: { activeTintColor: 'red' },
+          // eslint-disable-next-line react/display-name
+          tabBarIcon: () => {
+            return (
+              <Ionicons name='md-home' color='#FFFFFF' size={20}/>
+            )
+          }
+        }}
       />
       <Tab.Screen
         name='Map'
         component={MapScreen}
+        options={{
+          // eslint-disable-next-line react/display-name
+          tabBarIcon: () => {
+            return (
+              <MaterialCommunityIcons name='google-maps' color='#FFFFFF' size={20}/>
+            )
+          }
+        }}
       />
       <Tab.Screen
         name='Call Center'
         component={CallCenterScreen}
+        options={{
+          // eslint-disable-next-line react/display-name
+          tabBarIcon: () => {
+            return (
+              <Ionicons name='md-call' color='#FFFFFF' size={20}/>
+            )
+          }
+        }}
       />
       <Tab.Screen
         name='About'
         component={AboutScreen}
+        options={{
+          // eslint-disable-next-line react/display-name
+          tabBarIcon: () => {
+            return (
+              <Ionicons name='md-settings' color='#FFFFFF' size={20}/>
+            )
+          }
+        }}
       />
     </Tab.Navigator>
   )
