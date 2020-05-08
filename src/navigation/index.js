@@ -21,7 +21,7 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='HomeTab'
+        initialRouteName='SplashScreen'
         screenOptions={{
           headerShown: false,
           ...TransitionPresets.SlideFromRightIOS

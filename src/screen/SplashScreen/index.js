@@ -1,40 +1,59 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Text, StyleSheet, View } from 'react-native'
 import { DotIndicator } from 'react-native-indicators'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import MyStatusBar from '../../components/StatusBar'
 
-const SplashScreen = () => {
-  return (
-    <View style={styles['container']}>
+class SplashScreen extends Component {
+  componentDidMount () {
+    setTimeout(() => {
+      this.props.navigation.navigate('HomeTab')
+    }, 2000)
+  }
+
+  render () {
+    return (
+      <View style={styles['container']}>
+        {this.renderStatusBar()}
+        {this.renderHero()}
+      </View>
+    )
+  }
+
+  renderStatusBar = () => {
+    return (
       <MyStatusBar />
-      <Splash />
-    </View>
-  )
+    )
+  }
+
+  renderHero = () => {
+    return (
+      <View style={styles['splash']}>
+        <View style={styles['splash__lead']}>
+          <MaterialCommunityIcons
+            name='mine'
+            size={40}
+            color='#FF2D54'
+            style={styles['splash__lead__icon']}
+          />
+          <Text style={styles['splash__lead__title']}>
+            COVID19
+          </Text>
+        </View>
+        <DotIndicator
+          style={styles['splash__indicator']}
+          color='#FFFFFF'
+          size={7}
+        />
+      </View>
+    )
+  }
 }
 
-const Splash = () => {
-  return (
-    <View style={styles['splash']}>
-      <View style={styles['splash__lead']}>
-        <MaterialCommunityIcons
-          name='mine'
-          size={40}
-          color='#FF2D54'
-          style={styles['splash__lead__icon']}
-        />
-        <Text style={styles['splash__lead__title']}>
-            COVID19
-        </Text>
-      </View>
-      <DotIndicator
-        style={styles['splash__indicator']}
-        color='#FFFFFF'
-        size={7}
-      />
-    </View>
-  )
+SplashScreen.propTypes = {
+  navigation: PropTypes.object
 }
 
 export default SplashScreen

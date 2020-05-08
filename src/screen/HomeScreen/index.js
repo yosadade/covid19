@@ -2,51 +2,64 @@ import React, { Component } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Carousel, { Pagination } from 'react-native-snap-carousel'
 import {
   SafeAreaView,
   StyleSheet,
   FlatList,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions,
+  Image,
+  YellowBox
 } from 'react-native'
 
 import MyStatusBar from '../../components/StatusBar'
 import Navbar from '../../components/Navbar'
 
+import handWash from '../../assets/img/01.png'
+import masker from '../../assets/img/02.png'
+import handsanitizer from '../../assets/img/03.png'
+import quarantine from '../../assets/img/04.png'
+import handShake from '../../assets/img/05.png'
+
 class HomeScreen extends Component {
   constructor () {
     super()
     this.state = {
-      dataBanner: [
+      dataHero: [
         {
-          color: '#E86064',
-          title: 'Cuci tangan dengan sabun \n cuci tangan minimal 3x sehari',
-          icon: {
-            name: 'house',
-            size: 60
-          }
+          backgroundColor: '#F7F7F7',
+          title: 'Cuci tangan \n sampai bersih',
+          img: handWash
         },
         {
-          color: '#0A0D14',
-          title: 'Gunakan masker',
-          icon: {
-            name: 'house',
-            size: 60
-          }
+          backgroundColor: '#F7F7F7',
+          title: 'Gunakan masker \n wajah medis',
+          img: masker
         },
         {
-          color: '#449B80',
-          title: 'Jaga kebersihan lingkungan',
-          icon: {
-            name: 'house',
-            size: 60
-          }
+          backgroundColor: '#F7F7F7',
+          title: 'Gunakan gel \n berbasis alkohol',
+          img: handsanitizer
+        },
+        {
+          backgroundColor: '#F7F7F7',
+          title: 'Karantina mandiri \n selama 14 hari',
+          img: quarantine
+        },
+        {
+          backgroundColor: '#F7F7F7',
+          title: 'Hindari Kontak \n Fisik',
+          img: handShake
         }
       ],
+      activeSlide: 0,
       dataNasional: [],
       dataProvinsi: []
     }
+    YellowBox.ignoreWarnings(['FlatList: Calling `getNode()`'])
   }
 
   componentDidMount () {
@@ -86,7 +99,8 @@ class HomeScreen extends Component {
         {this.renderStatusBar()}
         {this.renderNavbar()}
         <ScrollView style={{ flex: 1 }}>
-          {this.renderBanner()}
+          {/* {this.renderBanner()} */}
+          {this.renderHero()}
           {this.renderCardIndo()}
           {this.renderCardProvinsi()}
         </ScrollView>
@@ -106,23 +120,57 @@ class HomeScreen extends Component {
     )
   }
 
-  renderBanner = () => {
-    const { dataBanner } = this.state
+  renderHero = () => {
     return (
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={dataBanner}
-        keyExtractor={(item, index) => item + index.toString()}
-        renderItem={this.renderContentBanner}
-        contentContainerStyle={{ paddingBottom: 20 }}
+      <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+        {this.renderCaraousel()}
+        {this.renderCaraouselPagination()}
+      </View>
+    )
+  }
+
+  renderCaraousel = () => {
+    const { dataHero } = this.state
+    const { width } = Dimensions.get('window')
+    return (
+      <Carousel
+        data={dataHero}
+        renderItem={this.renderCarouselItem}
+        decelerationRate="fast"
+        sliderWidth={width}
+        itemWidth={width}
+        onSnapToItem={index => this.setState({ activeSlide: index })}
+      />
+    )
+  }
+
+  renderCarouselItem = ({ item }) => {
+    return (
+      <View style={[styles['hero__caraousel'], { backgroundColor: item.backgroundColor }]}>
+        <Image source={item.img} style={{ height: 100, width: 100 }} />
+        <Text style={{ color: '#222222', fontSize: 18, fontWeight: 'bold' }}> {item.title} </Text>
+      </View>
+    )
+  }
+
+  renderCaraouselPagination = () => {
+    const { dataHero, activeSlide } = this.state
+    return (
+      <Pagination
+        dotsLength={dataHero.length}
+        activeDotIndex={activeSlide}
+        dotStyle={styles['hero__pagination__dot']}
+        dotContainerStyle={styles['hero__pagination__dot__container']}
+        inactiveDotOpacity={0.5}
+        inactiveDotScale={1}
+        containerStyle={styles['hero__pagination__container']}
       />
     )
   }
 
   renderCardIndo = () => {
     return (
-      <View>
+      <View style={{ paddingBottom: 10 }}>
         {this.renderLead()}
         {this.renderKasusMeninggal()}
         {this.renderPerawatanSembuh()}
@@ -143,23 +191,21 @@ class HomeScreen extends Component {
   renderKasusMeninggal = () => {
     const { jumlahKasus, meninggal } = this.state.dataNasional
     return (
-      <View style={styles.cardIndo}>
-        <View style={styles.kasus}>
-          <View style={styles.icon}>
+      <View style={[styles['card-Indo']]}>
+        <View style={[styles['card-Indo__data'], { backgroundColor: '#FF8E35' }]}>
+          <View style={styles['card-Indo__data__icon']}>
             <MaterialCommunityIcons name='mine' size={22} color='#FFFFFF'/>
-            <Text style={styles.title}> KASUS </Text>
+            <Text style={styles['card-Indo__data--title']}> KASUS </Text>
           </View>
-          <View style={styles.dataNasional}>
-            <Text style={styles.number}> {jumlahKasus} </Text>
-          </View>
+          <Text style={styles['card-Indo__data--number']}> {jumlahKasus} </Text>
         </View>
 
-        <View style={styles.meninggal}>
-          <View style={styles.icon}>
+        <View style={[styles['card-Indo__data'], { backgroundColor: '#FF2D54' }]}>
+          <View style={styles['card-Indo__data__icon']}>
             <MaterialCommunityIcons name='grave-stone' size={20} color='#FFFFFF'/>
-            <Text style={styles.title}> MENINGGAL </Text>
+            <Text style={styles['card-Indo__data--title']}> MENINGGAL </Text>
           </View>
-          <Text style={styles.number}> {meninggal} </Text>
+          <Text style={styles['card-Indo__data--number']}> {meninggal} </Text>
         </View>
       </View>
     )
@@ -168,30 +214,21 @@ class HomeScreen extends Component {
   renderPerawatanSembuh = () => {
     const { perawatan, sembuh } = this.state.dataNasional
     return (
-      <View style={styles.cardIndo}>
-        <View style={styles.perawatan}>
-          <View style={styles.icon}>
+      <View style={styles['card-Indo']}>
+        <View style={[styles['card-Indo__data'], { backgroundColor: '#01CD98' }]}>
+          <View style={styles['card-Indo__data__icon']}>
             <FontAwesome name='hospital-o' size={18} color='#FFFFFF'/>
-            <Text style={styles.title}> PERAWATAN </Text>
+            <Text style={styles['card-Indo__data--title']}> PERAWATAN </Text>
           </View>
-          <Text style={styles.number}> {perawatan} </Text>
+          <Text style={styles['card-Indo__data--number']}> {perawatan} </Text>
         </View>
-        <View style={styles.sembuh}>
-          <View style={styles.icon}>
+        <View style={[styles['card-Indo__data'], { backgroundColor: '#3598DC' }]}>
+          <View style={styles['card-Indo__data__icon']}>
             <Ionicons name='ios-body' size={20} color='#FFFFFF'/>
-            <Text style={styles.title}> SEMBUH </Text>
+            <Text style={styles['card-Indo__data--title']}> SEMBUH </Text>
           </View>
-          <Text style={styles.number}> {sembuh} </Text>
+          <Text style={styles['card-Indo__data--number']}> {sembuh} </Text>
         </View>
-      </View>
-    )
-  }
-
-  renderContentBanner = ({ item }) => {
-    return (
-      <View style={[styles['banner__banner-area'], { backgroundColor: item.color }]}>
-        <Ionicons name={item.icon.name} size={item.icon.size} style={{ marginRight: 20 }}/>
-        <Text style={styles['banner__banner-area__text']}> {item.title} </Text>
       </View>
     )
   }
@@ -276,70 +313,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF'
   },
-  'banner__banner-area': {
-    height: 150,
-    width: 350,
-    marginTop: 20,
-    marginHorizontal: 20,
-    backgroundColor: '#E86064',
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row'
-  },
-  'banner__banner-area__text': {
-    color: '#FFFFFF'
-  },
-  cardIndo: {
+  'card-Indo': {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingBottom: 20
   },
-  kasus: {
+  'card-Indo__data': {
     height: 100,
     width: '48%',
-    backgroundColor: '#FF8E35',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  meninggal: {
-    height: 100,
-    width: '48%',
-    backgroundColor: '#FF2D54',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  perawatan: {
-    height: 100,
-    width: '48%',
-    backgroundColor: '#01CD98',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  sembuh: {
-    height: 100,
-    width: '48%',
-    backgroundColor: '#3598DC',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  icon: {
+  'card-Indo__data__icon': {
     flexDirection: 'row',
     alignItems: 'center'
   },
-  title: {
+  'card-Indo__data--title': {
     fontSize: 12,
     fontWeight: '600',
     color: '#FFFFFF',
     marginVertical: 5,
     marginHorizontal: 5
   },
-  number: {
+  'card-Indo__data--number': {
     fontSize: 35,
     fontWeight: '600',
     color: '#FFFFFF'
@@ -398,5 +396,45 @@ const styles = StyleSheet.create({
   'content__data__text--meninggal': {
     color: '#FF2D54',
     fontSize: 11
+  },
+  hero__container: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 150,
+    left: 0
+  },
+  hero__wrapper: {
+    width: 300,
+    height: 200,
+    backgroundColor: '#FFFFFF'
+  },
+  hero: {
+    fontSize: 31,
+    color: '#ffffff',
+    fontFamily: 'Nunito-Bold'
+  },
+  hero__caraousel: {
+    borderRadius: 10,
+    width: 350,
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  hero__pagination__dot__container: {
+    marginHorizontal: 2,
+    right: 20
+  },
+  hero__pagination__dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'white'
+  },
+  hero__pagination__container: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    bottom: 10
   }
 })
