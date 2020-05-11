@@ -31,6 +31,7 @@ class MapScreen extends Component {
   }
 
   async getHospital () {
+    // eslint-disable-next-line no-undef
     await fetch('https://covid19-public.digitalservice.id/api/v1/sebaran/jabar/faskes')
       .then(res => res.json())
       .then(response =>
