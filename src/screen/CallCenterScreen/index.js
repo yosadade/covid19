@@ -7,10 +7,17 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-  Image
+  Image,
+  ScrollView
 } from 'react-native'
-import jateng from '../../assets/img/jawa-tengah.png.jpeg'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import StatusBar from '../../components/StatusBar'
+
+import kemenkes from '../../assets/img/kemenkes.png'
+import dki from '../../assets/img/dki.png'
+import jateng from '../../assets/img/jawa-tengah.png.jpeg'
+import jatim from '../../assets/img/jatim.png'
+import jabar from '../../assets/img/jabar.png'
 
 class CallCenter extends Component {
   constructor (props) {
@@ -21,25 +28,25 @@ class CallCenter extends Component {
           id: 1,
           nama: 'Kementrian Kesehatan',
           no: '021-5210-411',
-          icon: jateng
+          icon: kemenkes
         },
         {
           id: 2,
           nama: 'Kementrian Kesehatan',
           no: '0812-1212-3119',
-          icon: jateng
+          icon: kemenkes
         },
         {
           id: 3,
           nama: 'Pemprov DKI Jakarta',
           no: '112',
-          icon: jateng
+          icon: dki
         },
         {
           id: 4,
           nama: 'Pemprov DKI Jakarta',
           no: '0813-8837-6955',
-          icon: jateng
+          icon: dki
         },
         {
           id: 5,
@@ -57,13 +64,13 @@ class CallCenter extends Component {
           id: 7,
           nama: 'Pemprov Jawa Timur',
           no: '031-843-0313',
-          icon: jateng
+          icon: jatim
         },
         {
           id: 8,
           nama: 'Pemprov Jawa Barat',
           no: '119',
-          icon: jateng
+          icon: jabar
         }
       ]
     }
@@ -73,6 +80,7 @@ class CallCenter extends Component {
     return (
       <View style={styles['container']}>
         {this.renderStatusBar()}
+        {this.renderNavbar()}
         {this.renderLead()}
         {this.renderContent()}
       </View>
@@ -85,12 +93,27 @@ class CallCenter extends Component {
     )
   }
 
+  renderNavbar = () => {
+    return (
+      <View
+        style={styles['navbar']}
+      >
+        <Ionicons
+          name='md-call'
+          color='#FF2D54'
+          size={20}
+        />
+        <Text style={styles['navbar__title']}> Call Center </Text>
+      </View>
+    )
+  }
+
   renderLead = () => {
     return (
       <View
         style={styles['lead']}
       >
-        <Text style={styles['lead__title']}> Call Center </Text>
+        <Text style={styles['lead__title']}>Tekan call center sesuai dengan tempat tinggal anda untuk menghubungi. </Text>
       </View>
     )
   }
@@ -98,7 +121,7 @@ class CallCenter extends Component {
   renderContent = () => {
     const { data } = this.state
     return (
-      <View style={styles['content']}>
+      <ScrollView style={styles['content']}>
         <FlatList
           data={data}
           keyExtractor={(item, index) => item + index.toString()}
@@ -106,7 +129,7 @@ class CallCenter extends Component {
           scrollEnabled={false}
           renderItem={this.renderContentItem}
         />
-      </View>
+      </ScrollView>
     )
   }
 
@@ -137,7 +160,6 @@ class CallCenter extends Component {
             </View>
           </View>
         </TouchableOpacity>
-
       </View>
     )
   }
@@ -149,14 +171,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  lead: {
-    paddingTop: 20,
+  navbar: {
+    paddingVertical: 15,
     paddingHorizontal: 20,
-    paddingBottom: 20,
-    backgroundColor: '#282B33'
+    backgroundColor: '#282B33',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  navbar__title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginLeft: 5
+  },
+  lead: {
+    backgroundColor: '#048AD6',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20
   },
   lead__title: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#FFFFFF'
   },
@@ -172,13 +207,14 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   content__title: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: '700',
-    color: 'white'
+    color: '#FFFFFF'
   },
   content__number: {
-    color: '#FF9F1C',
-    paddingVertical: 5
+    color: '#FF2D54',
+    paddingVertical: 5,
+    fontSize: 13
   }
   // card: {
   //   backgroundColor: '#343641',

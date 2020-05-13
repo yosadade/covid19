@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Dimensions, Image } from 'react-native'
+import { Text, StyleSheet, View, Dimensions } from 'react-native'
+import Svg from 'react-native-svg'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 
-import handWash from '../../../../assets/img/01.png'
-import masker from '../../../../assets/img/02.png'
-import handsanitizer from '../../../../assets/img/03.png'
-import quarantine from '../../../../assets/img/04.png'
-import handShake from '../../../../assets/img/05.png'
+import handWash from '../../../../assets/img/01.svg'
+import masker from '../../../../assets/img/02.svg'
+import handsanitizer from '../../../../assets/img/03.svg'
+import quarantine from '../../../../assets/img/04.svg'
+import handShake from '../../../../assets/img/05.svg'
 
 class Caraousel extends Component {
   constructor () {
@@ -15,27 +16,27 @@ class Caraousel extends Component {
       dataHero: [
         {
           backgroundColor: '#F7F7F7',
-          title: 'Cuci tangan \n sampai bersih',
+          title: 'Cuci tangan\nsampai bersih',
           img: handWash
         },
         {
           backgroundColor: '#F7F7F7',
-          title: 'Gunakan masker \n wajah medis',
+          title: 'Gunakan masker\nwajah medis',
           img: masker
         },
         {
           backgroundColor: '#F7F7F7',
-          title: 'Gunakan gel \n berbasis alkohol',
+          title: 'Gunakan gel\nberbasis alkohol',
           img: handsanitizer
         },
         {
           backgroundColor: '#F7F7F7',
-          title: 'Karantina mandiri \n selama 14 hari',
+          title: 'Karantina mandiri\nselama 14 hari',
           img: quarantine
         },
         {
           backgroundColor: '#F7F7F7',
-          title: 'Hindari Kontak \n Fisik',
+          title: 'Hindari Kontak\nFisik',
           img: handShake
         }
       ],
@@ -74,9 +75,10 @@ class Caraousel extends Component {
           styles['hero__caraousel'],
           { backgroundColor: item.backgroundColor }
         ]}>
-        <Image
-          source={item.img}
-          style={styles['hero__caraousel__img']} />
+        <Svg height='100' width='100' fill='blue'>
+          <item.img
+            style={styles['hero__caraousel__img']} />
+        </Svg>
         <Text
           style={styles['hero__caraousel__title']}>
           {item.title}

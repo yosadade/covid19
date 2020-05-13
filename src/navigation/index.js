@@ -91,11 +91,11 @@ const HomeTab = () => {
         name='Home'
         component={HomeScreen}
         tabBarIcon={{
-          activeTintColor: 'red'
+          activeTintColor: '#FC7302'
         }}
         options={{
 
-          activeTintColor: { activeTintColor: 'red' },
+          activeTintColor: { activeTintColor: '#FC7302' },
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => {
             return (
@@ -105,13 +105,13 @@ const HomeTab = () => {
         }}
       />
       <Tab.Screen
-        name='Map'
+        name='Hospital'
         component={MapScreen}
         options={{
           // eslint-disable-next-line react/display-name
           tabBarIcon: () => {
             return (
-              <MaterialCommunityIcons name='google-maps' color='#FFFFFF' size={20}/>
+              <MaterialCommunityIcons name='hospital-marker' color='#FFFFFF' size={20}/>
             )
           }
         }}

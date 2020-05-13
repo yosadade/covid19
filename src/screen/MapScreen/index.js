@@ -7,11 +7,12 @@ import {
   Linking,
   FlatList,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import StatusBar from '../../components/StatusBar'
-import Navbar from '../../components/Navbar'
 
 class MapScreen extends Component {
   constructor (props) {
@@ -39,7 +40,102 @@ class MapScreen extends Component {
       )
   }
 
-  openMaps (lat, lng) {
+  render () {
+    return (
+      <SafeAreaView style={styles['container']}>
+        {this.renderStatusBar()}
+        {this.renderNavbar()}
+        {this.renderLead()}
+        {this.renderContent()}
+      </SafeAreaView>
+    )
+  }
+
+  renderStatusBar = () => {
+    return (
+      <StatusBar />
+    )
+  }
+
+  renderNavbar = () => {
+    return (
+      <View
+        style={styles['navbar']}
+      >
+        <MaterialCommunityIcons
+          name='hospital-marker'
+          color='#FF2D54'
+          size={20}
+        />
+        <Text style={styles['navbar__title']}> Rumah Sakit Terdekat </Text>
+      </View>
+    )
+  }
+
+  renderLead = () => {
+    return (
+      <View
+        style={styles['lead']}
+      >
+        <Text style={styles['lead__title']}>Tekan alamat rumah sakit untuk menunjukan route terbaik.</Text>
+      </View>
+    )
+  }
+
+  renderContent = () => {
+    const { data } = this.state
+    return (
+      <ScrollView style={styles['content']}>
+        <FlatList
+          data={data}
+          keyExtractor={(item, index) => item + index.toString()}
+          scrollEnabled={false}
+          renderItem={this.renderContentItem}
+          contentContainerStyle={{
+            paddingBottom: 100,
+            paddingTop: 20
+          }}
+          onRefresh={() => this.onRefresh()}
+          refreshing={this.state.isFetching}
+        />
+      </ScrollView>
+    )
+  }
+
+  renderContentItem = ({ item }) => {
+    return (
+      <View style={{ paddingVertical: 5 }}>
+        <TouchableOpacity
+          onPress={() => this.openMaps(item.latitude, item.longitude)}>
+          <View style={styles.card} key={item.id}>
+            <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: '#343641',
+                borderRadius: 10,
+                padding: 10,
+                marginVertical: 5,
+                alignItems: 'center'
+              }}>
+              <View>
+                <Text style={styles['content__title']}>{item.nama}</Text>
+                <Text style={styles['content__number']}>{item.alamat}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  onRefresh = () => {
+    this.setState({ isFetching: true })
+    setTimeout(() => {
+      this.getHospital()
+    }, 1000)
+  }
+
+  openMaps = (lat, lng) => {
     const location = `${lat}+${lng}`
     const url = Platform.select({
       ios: `maps://app?daddr=${location}`,
@@ -47,77 +143,52 @@ class MapScreen extends Component {
     })
     Linking.openURL(url)
   }
-
-    onRefresh = () => {
-      this.setState({ isFetching: true })
-      setTimeout(() => {
-        this.getHospital()
-      }, 1000)
-    };
-
-    renderItem = ({ item }) => {
-      return (
-        <TouchableOpacity
-          onPress={() => this.openMaps(item.latitude, item.longitude)}>
-          <View style={styles.card} key={item.nama.toString()}>
-            <Text style={{ fontSize: 13, color: '#E5DDDD' }}>
-              {item.nama}
-            </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={{ fontSize: 13, color: '#FC7302' }}>
-                {item.alamat}
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      )
-    };
-
-    render () {
-      return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#171B1E' }}>
-          <StatusBar />
-          <Navbar />
-          <View style={styles.notes}>
-            <Text style={{ fontSize: 15, color: 'white' }}>
-                        Tekan alamat rumah sakit untuk menunjukan route terbaik.
-            </Text>
-          </View>
-          <View>
-            <FlatList
-              contentContainerStyle={{
-                paddingBottom: 100,
-                paddingTop: 20
-              }}
-              onRefresh={() => this.onRefresh()}
-              refreshing={this.state.isFetching}
-              keyExtractor={item => item.nama}
-              data={this.state.data}
-              renderItem={item => this.renderItem(item)}
-            />
-          </View>
-        </SafeAreaView>
-      )
-    }
 }
 
 export default MapScreen
 
 const styles = StyleSheet.create({
-  card: {
-    padding: 20,
-    backgroundColor: '#1B232F',
-    marginBottom: 8,
-    marginHorizontal: 8,
-    borderRadius: 8,
-    height: 80
+  container: {
+    flex: 1,
+    backgroundColor: '#24252B'
   },
-  notes: {
+  navbar: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: '#282B33',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  navbar__title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginLeft: 5
+  },
+  lead: {
     backgroundColor: '#048AD6',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
-    marginHorizontal: 0,
-    borderRadius: 0
+    padding: 20
+  },
+  lead__title: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#FFFFFF'
+  },
+  content: {
+    flex: 1,
+    backgroundColor: '#24252B',
+    paddingHorizontal: 20
+  },
+  content__title: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#FFFFFF'
+  },
+  content__number: {
+    color: '#FF2D54',
+    paddingVertical: 5,
+    fontSize: 13
   }
 })

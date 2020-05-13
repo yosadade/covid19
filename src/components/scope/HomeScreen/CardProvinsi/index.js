@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, FlatList } from 'react-native'
+import { Text, StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 
-export default class CardProvinsi extends Component {
+class CardProvinsi extends Component {
   constructor () {
     super()
     this.state = {
-      dataProvinsi: []
+      dataProvinsi: [],
+      isFetching: true
     }
   }
 
@@ -24,12 +25,19 @@ export default class CardProvinsi extends Component {
       })
   }
 
+  onRefresh = () => {
+    this.setState({ isFetching: true })
+    setTimeout(() => {
+      this.getDataProvinsi()
+    }, 1000)
+  };
+
   render () {
     return (
-      <View style={styles['card-provinsi']}>
+      <SafeAreaView style={styles['card-provinsi']}>
         {this.renderLead()}
         {this.renderContent()}
-      </View>
+      </SafeAreaView>
     )
   }
 
@@ -44,13 +52,15 @@ export default class CardProvinsi extends Component {
   }
 
     renderContent = () => {
-      const { dataProvinsi } = this.state
+      const { dataProvinsi, isFetching } = this.state
       return (
         <FlatList
           data={dataProvinsi}
           keyExtractor={(item, index) => item + index.toString()}
           renderItem={this.renderDataProvinsiItem}
           showsVerticalScrollIndicator={false}
+          refreshing={isFetching}
+          onRefresh={() => this.onRefresh()}
           contentContainerStyle={{
             borderRadius: 10,
             backgroundColor: '#282B33',
@@ -87,6 +97,8 @@ export default class CardProvinsi extends Component {
       )
     }
 }
+
+export default CardProvinsi
 
 const styles = StyleSheet.create({
   lead: {
