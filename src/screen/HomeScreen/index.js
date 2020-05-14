@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   ScrollView,
@@ -16,20 +15,23 @@ import CardProvinsi from '../../components/scope/HomeScreen/CardProvinsi'
 class HomeScreen extends Component {
   constructor () {
     super()
-    YellowBox.ignoreWarnings(['FlatList: Calling `getNode()`'])
+    YellowBox.ignoreWarnings(['FlatList: Calling `getNode()`', 'VirtualizedLists should never be'])
   }
 
   render () {
     return (
-      <SafeAreaView style={styles['container']}>
+      <View style={styles['container']}>
         {this.renderStatusBar()}
         {this.renderNavbar()}
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView
+          style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
           {this.renderHero()}
           {this.renderCardIndo()}
           {this.renderCardProvinsi()}
         </ScrollView>
-      </SafeAreaView>
+      </View>
     )
   }
 

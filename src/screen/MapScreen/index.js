@@ -7,8 +7,7 @@ import {
   Linking,
   FlatList,
   Platform,
-  TouchableOpacity,
-  ScrollView
+  TouchableOpacity
 } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -27,10 +26,6 @@ class MapScreen extends Component {
     this.getHospital()
   }
 
-  componentWillUnmount () {
-    this.getHospital()
-  }
-
   async getHospital () {
     // eslint-disable-next-line no-undef
     await fetch('https://covid19-public.digitalservice.id/api/v1/sebaran/jabar/faskes')
@@ -42,12 +37,12 @@ class MapScreen extends Component {
 
   render () {
     return (
-      <SafeAreaView style={styles['container']}>
+      <View style={styles['container']}>
         {this.renderStatusBar()}
         {this.renderNavbar()}
         {this.renderLead()}
         {this.renderContent()}
-      </SafeAreaView>
+      </View>
     )
   }
 
@@ -85,11 +80,13 @@ class MapScreen extends Component {
   renderContent = () => {
     const { data } = this.state
     return (
-      <ScrollView style={styles['content']}>
+      <SafeAreaView style={styles['content']}>
         <FlatList
           data={data}
           keyExtractor={(item, index) => item + index.toString()}
-          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          scrollIndicatorInsets={false}
+          maxToRenderPerBatch={6}
           renderItem={this.renderContentItem}
           contentContainerStyle={{
             paddingBottom: 100,
@@ -98,7 +95,7 @@ class MapScreen extends Component {
           onRefresh={() => this.onRefresh()}
           refreshing={this.state.isFetching}
         />
-      </ScrollView>
+      </SafeAreaView>
     )
   }
 
@@ -149,8 +146,8 @@ export default MapScreen
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#24252B'
+    backgroundColor: '#24252B',
+    flex: 1
   },
   navbar: {
     paddingVertical: 15,
@@ -177,7 +174,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   content: {
-    flex: 1,
     backgroundColor: '#24252B',
     paddingHorizontal: 20
   },

@@ -83,63 +83,50 @@ const HomeTab = () => {
         },
         tabStyle: {
           marginTop: 10
-        },
-        keyboardHidesTabBar: true
+        }
       }}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          if (route.name === 'Home') {
+            return (
+              <Ionicons
+                name='md-home'
+                size={size}
+                color={color}
+              />
+            )
+          } else if (route.name === 'Hospital') {
+            return (
+              <MaterialCommunityIcons
+                name='hospital-marker'
+                size={size}
+                color={color}
+              />
+            )
+          } else if (route.name === 'Call Center') {
+            return (
+              <Ionicons
+                name='md-call'
+                size={size}
+                color={color}
+              />
+            )
+          } else if (route.name === 'About') {
+            return (
+              <Ionicons
+                name='md-settings'
+                size={size}
+                color={color}
+              />
+            )
+          }
+        }
+      })}
     >
-      <Tab.Screen
-        name='Home'
-        component={HomeScreen}
-        tabBarIcon={{
-          activeTintColor: '#FC7302'
-        }}
-        options={{
-
-          activeTintColor: { activeTintColor: '#FC7302' },
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: () => {
-            return (
-              <Ionicons name='md-home' color='#FFFFFF' size={20}/>
-            )
-          }
-        }}
-      />
-      <Tab.Screen
-        name='Hospital'
-        component={MapScreen}
-        options={{
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: () => {
-            return (
-              <MaterialCommunityIcons name='hospital-marker' color='#FFFFFF' size={20}/>
-            )
-          }
-        }}
-      />
-      <Tab.Screen
-        name='Call Center'
-        component={CallCenterScreen}
-        options={{
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: () => {
-            return (
-              <Ionicons name='md-call' color='#FFFFFF' size={20}/>
-            )
-          }
-        }}
-      />
-      <Tab.Screen
-        name='About'
-        component={AboutScreen}
-        options={{
-          // eslint-disable-next-line react/display-name
-          tabBarIcon: () => {
-            return (
-              <Ionicons name='md-settings' color='#FFFFFF' size={20}/>
-            )
-          }
-        }}
-      />
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Hospital" component={MapScreen} />
+      <Tab.Screen name="Call Center" component={CallCenterScreen} />
+      <Tab.Screen name="About" component={AboutScreen} />
     </Tab.Navigator>
   )
 }

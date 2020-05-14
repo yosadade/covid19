@@ -27,18 +27,19 @@ class Navbar extends Component {
   }
 
   render () {
+    const { dataLastUpdate } = this.state
     return (
-      <View style={[styles.container]}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles['container']}>
+        <View style={styles['wrap__logo']}>
           <MaterialCommunityIcons name='mine' size={20} color='#FF2D54' />
           <Text
-            style={styles.title}>
+            style={styles['logo__title']}>
           COVID19
           </Text>
         </View>
         <Text
-          style={styles.dataUpdate}>
-          {this.state.dataLastUpdate} WIB
+          style={styles['data-update']}>
+          Last Update {dataLastUpdate}
         </Text>
       </View>
     )
@@ -55,18 +56,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#282B33'
-    // borderBottomWidth: 3,
-    // borderColor: '#F7F7F7'
   },
-  title: {
+  wrap__logo: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo__title: {
     color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
     paddingLeft: 5
   },
-  dataUpdate: {
-    color: '#FFFFFF',
-    fontSize: 12,
+  'data-update': {
+    color: '#cec6c6',
+    fontSize: 11,
     fontWeight: '600'
   }
 })

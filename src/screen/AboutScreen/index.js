@@ -38,7 +38,7 @@ class AboutScreen extends Component {
   renderTitle = () => {
     return (
       <View style={styles['wrap__title']}>
-        <Text style={styles['title']}> Halaman tidak ditemukan </Text>
+        <Text style={styles['title']}> Halaman belum tersedia </Text>
       </View>
     )
   }
@@ -73,6 +73,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#FFFFFF'
+    color: '#CEC6C6'
   }
 })

@@ -8,7 +8,7 @@ import {
   Linking,
   Platform,
   Image,
-  ScrollView
+  SafeAreaView
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import StatusBar from '../../components/StatusBar'
@@ -121,15 +121,15 @@ class CallCenter extends Component {
   renderContent = () => {
     const { data } = this.state
     return (
-      <ScrollView style={styles['content']}>
+      <SafeAreaView style={styles['content']}>
         <FlatList
           data={data}
           keyExtractor={(item, index) => item + index.toString()}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingVertical: 10 }}
-          scrollEnabled={false}
           renderItem={this.renderContentItem}
         />
-      </ScrollView>
+      </SafeAreaView>
     )
   }
 

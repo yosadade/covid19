@@ -25,12 +25,12 @@ class CardProvinsi extends Component {
       })
   }
 
-  onRefresh = () => {
-    this.setState({ isFetching: true })
-    setTimeout(() => {
-      this.getDataProvinsi()
-    }, 1000)
-  };
+  // onRefresh = () => {
+  //   this.setState({ isFetching: true })
+  //   setTimeout(() => {
+  //     this.getDataProvinsi()
+  //   }, 1000)
+  // };
 
   render () {
     return (
@@ -52,15 +52,17 @@ class CardProvinsi extends Component {
   }
 
     renderContent = () => {
-      const { dataProvinsi, isFetching } = this.state
+      const { dataProvinsi } = this.state
       return (
         <FlatList
           data={dataProvinsi}
           keyExtractor={(item, index) => item + index.toString()}
           renderItem={this.renderDataProvinsiItem}
           showsVerticalScrollIndicator={false}
-          refreshing={isFetching}
-          onRefresh={() => this.onRefresh()}
+          maxToRenderPerBatch={6}
+          updateCellsBatchingPeriod={100}
+          // refreshing={isFetching}
+          // onRefresh={() => this.onRefresh()}
           contentContainerStyle={{
             borderRadius: 10,
             backgroundColor: '#282B33',
