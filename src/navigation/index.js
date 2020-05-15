@@ -6,6 +6,7 @@ import MapScreen from '../screen/MapScreen'
 import CallCenterScreen from '../screen/CallCenterScreen'
 import AboutScreen from '../screen/AboutScreen'
 import SplashScreen from '../screen/SplashScreen'
+import ContentCardProvinsi from '../components/scope/HomeScreen/ContentCardProvinsi'
 
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -28,6 +29,10 @@ const Navigation = () => {
         }}
       >
         <Stack.Screen
+          name='HomeTab'
+          component={HomeTab}
+        />
+        <Stack.Screen
           name='MapScreen'
           component={MapScreen}
         />
@@ -44,8 +49,8 @@ const Navigation = () => {
           component={SplashScreen}
         />
         <Stack.Screen
-          name='HomeTab'
-          component={HomeTab}
+          name='ContentCardProvinsi'
+          component={ContentCardProvinsi}
         />
       </Stack.Navigator>
     </NavigationContainer>

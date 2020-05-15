@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Text, StyleSheet, View, TouchableOpacity, FlatList } from 'react-native'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-class CardProvinsi extends Component {
+import StatusBar from '../../../StatusBar'
+
+class ContentCardProvinsi extends Component {
   constructor () {
     super()
     this.state = {
-      dataProvinsi: [],
-      isFetching: true
+      dataProvinsi: []
     }
   }
 
@@ -22,46 +23,51 @@ class CardProvinsi extends Component {
       .then(res => res.json())
       .then(response => {
         this.setState({
-          dataProvinsi: response.data.slice(0, 5)
+          dataProvinsi: response.data
         })
       })
   }
 
-  // onRefresh = () => {
-  //   this.setState({ isFetching: true })
-  //   setTimeout(() => {
-  //     this.getDataProvinsi()
-  //   }, 1000)
-  // };
-
   render () {
     return (
-      <SafeAreaView style={styles['card-provinsi']}>
-        {this.renderLead()}
+      <View style={styles['container']}>
+        {this.renderStatusBar()}
+        {this.renderNavbar()}
         {this.renderContent()}
-      </SafeAreaView>
-    )
-  }
-
-  renderLead = () => {
-    return (
-      <View
-        style={styles['lead']}
-      >
-        <Text style={styles['lead__title--data']}>Data Provinsi </Text>
-        <TouchableOpacity
-          onPress={this.onPress}
-        >
-          <Text style={styles['lead__title--view']}>
-            View More
-          </Text>
-        </TouchableOpacity>
       </View>
     )
   }
 
-  onPress = () => {
-    this.props.navigation.navigate('ContentCardProvinsi')
+  renderStatusBar = () => {
+    return (
+      <StatusBar />
+    )
+  }
+
+  renderNavbar = () => {
+    return (
+      <View
+        style={styles['navbar']}
+      >
+        <TouchableOpacity
+          style={{ marginRight: 5 }}
+          onPress={this.onBack}
+        >
+          <MaterialCommunityIcons
+            name='arrow-left'
+            color='#FF2D54'
+            size={20}
+          />
+        </TouchableOpacity>
+        <Text style={styles['navbar__title']}>
+            Data Provinsi
+        </Text>
+      </View>
+    )
+  }
+
+  onBack = () => {
+    this.props.navigation.goBack()
   }
 
   renderContent = () => {
@@ -79,8 +85,10 @@ class CardProvinsi extends Component {
         contentContainerStyle={{
           borderRadius: 10,
           backgroundColor: '#282B33',
-          marginHorizontal: 20
+          marginHorizontal: 20,
+          marginVertical: 20
         }}
+        style={{ backgroundColor: '#24252B' }}
       />
     )
   }
@@ -113,32 +121,29 @@ class CardProvinsi extends Component {
   }
 }
 
-CardProvinsi.propTypes = {
+ContentCardProvinsi.propTypes = {
   navigation: PropTypes.object
 }
 
-export default CardProvinsi
+export default ContentCardProvinsi
 
 const styles = StyleSheet.create({
-  lead: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row'
+  container: {
+    backgroundColor: '#24252B',
+    flex: 1
   },
-  'lead__title--data': {
+  navbar: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: '#282B33',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  navbar__title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFFFFF'
-  },
-  'lead__title--view': {
-    fontSize: 12,
-    color: '#cec6c6',
-    fontWeight: '600'
-  },
-  'card-provinsi': {
-    paddingBottom: 20
+    color: '#FFFFFF',
+    marginLeft: 5
   },
   content: {
     paddingHorizontal: 20,

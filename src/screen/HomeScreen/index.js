@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   StyleSheet,
   View,
@@ -64,10 +65,14 @@ class HomeScreen extends Component {
   renderCardProvinsi = () => {
     return (
       <View>
-        <CardProvinsi />
+        <CardProvinsi navigation={this.props.navigation}/>
       </View>
     )
   }
+}
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.object
 }
 
 export default HomeScreen

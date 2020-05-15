@@ -78,7 +78,7 @@ class MapScreen extends Component {
   }
 
   renderContent = () => {
-    const { data } = this.state
+    const { data, isFetching } = this.state
     return (
       <SafeAreaView style={styles['content']}>
         <FlatList
@@ -93,7 +93,7 @@ class MapScreen extends Component {
             paddingTop: 20
           }}
           onRefresh={() => this.onRefresh()}
-          refreshing={this.state.isFetching}
+          refreshing={isFetching}
         />
       </SafeAreaView>
     )

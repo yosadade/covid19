@@ -9,7 +9,7 @@ import MyStatusBar from '../../components/StatusBar'
 class SplashScreen extends Component {
   componentDidMount () {
     setTimeout(() => {
-      this.props.navigation.navigate('HomeTab')
+      this.props.navigation.replace('HomeTab')
     }, 2000)
   }
 
