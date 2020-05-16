@@ -4,7 +4,7 @@ import { Text, StyleSheet, View } from 'react-native'
 import { DotIndicator } from 'react-native-indicators'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import MyStatusBar from '../../components/StatusBar'
+import MyStatusBar from '../../components/global/StatusBar'
 
 class SplashScreen extends Component {
   componentDidMount () {

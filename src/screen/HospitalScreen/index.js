@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import StatusBar from '../../components/StatusBar'
+import StatusBar from '../../components/global/StatusBar'
 
-class MapScreen extends Component {
+class HospitalScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -142,7 +142,7 @@ class MapScreen extends Component {
   }
 }
 
-export default MapScreen
+export default HospitalScreen
 
 const styles = StyleSheet.create({
   container: {

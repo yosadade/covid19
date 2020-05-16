@@ -7,8 +7,8 @@ import {
   YellowBox
 } from 'react-native'
 
-import MyStatusBar from '../../components/StatusBar'
-import Navbar from '../../components/Navbar'
+import MyStatusBar from '../../components/global/StatusBar'
+import Navbar from '../../components/global/Navbar'
 import Hero from '../../components/scope/HomeScreen/Hero'
 import CardIndo from '../../components/scope/HomeScreen/CardIndo'
 import CardProvinsi from '../../components/scope/HomeScreen/CardProvinsi'

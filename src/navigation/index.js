@@ -2,7 +2,7 @@ import React from 'react'
 import 'react-native-gesture-handler'
 
 import HomeScreen from '../screen/HomeScreen'
-import MapScreen from '../screen/MapScreen'
+import HospitalScreen from '../screen/HospitalScreen'
 import CallCenterScreen from '../screen/CallCenterScreen'
 import AboutScreen from '../screen/AboutScreen'
 import SplashScreen from '../screen/SplashScreen'
@@ -33,8 +33,8 @@ const Navigation = () => {
           component={HomeTab}
         />
         <Stack.Screen
-          name='MapScreen'
-          component={MapScreen}
+          name='HospitalScreen'
+          component={HospitalScreen}
         />
         <Stack.Screen
           name='CallCenterScreen'
@@ -129,7 +129,7 @@ const HomeTab = () => {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Hospital" component={MapScreen} />
+      <Tab.Screen name="Hospital" component={HospitalScreen} />
       <Tab.Screen name="Call Center" component={CallCenterScreen} />
       <Tab.Screen name="About" component={AboutScreen} />
     </Tab.Navigator>

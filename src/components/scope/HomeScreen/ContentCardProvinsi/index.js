@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, StyleSheet, View, TouchableOpacity, FlatList } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import StatusBar from '../../../StatusBar'
+import StatusBar from '../../../global/StatusBar'
 
 class ContentCardProvinsi extends Component {
   constructor () {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import StatusBar from '../../components/StatusBar'
+import StatusBar from '../../components/global/StatusBar'
 
 class AboutScreen extends Component {
   render () {

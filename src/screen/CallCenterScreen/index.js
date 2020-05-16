@@ -11,7 +11,7 @@ import {
   SafeAreaView
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import StatusBar from '../../components/StatusBar'
+import StatusBar from '../../components/global/StatusBar'
 
 import kemenkes from '../../assets/img/kemenkes.png'
 import dki from '../../assets/img/dki.png'
